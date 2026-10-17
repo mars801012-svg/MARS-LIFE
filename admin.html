@@ -70,6 +70,29 @@ section .eyebrow:after{content:"";width:52px;height:1px;background:#80d7c540}
 footer{padding:24px 30px 38px;border-top:0;font-size:11px;letter-spacing:.7px}
 @media(max-width:850px){.hero{gap:24px;padding:40px 24px 56px}.hero:after{left:24px}}
 @media(max-width:650px){header,main,footer{padding-left:17px;padding-right:17px}.hero{padding:32px 22px 54px;margin-top:12px;border-radius:18px}section{padding:30px 22px 32px;margin:20px 0;border-radius:16px}.hero-visual img{height:310px}section:before{left:22px}section:after{right:16px;top:14px}.tag{padding:12px 18px}.note{padding-left:18px}.hero:after{font-size:8px;letter-spacing:2px}#interests:after{font-size:8px;bottom:12px}footer{gap:8px;padding-top:10px}}
+</style><style id="circuitTheme">
+/* Circuit paths, desktop chrome and code details */
+.circuit-band{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:13px 18px;margin:0 0 26px;border:1px solid #80d7c52b;border-radius:10px;background:#102026;font:11px ui-monospace,SFMono-Regular,Consolas,monospace;color:#98bcb2;letter-spacing:1px}
+.circuit-track{height:28px;flex:1;max-width:250px;background:linear-gradient(90deg,transparent 0 10%,#80d7c55c 10% 70%,transparent 70%) center/100% 1px no-repeat;position:relative}
+.circuit-track:before,.circuit-track:after{content:"";position:absolute;width:7px;height:7px;border:1px solid #80d7c5;border-radius:50%;top:10px}.circuit-track:before{left:10%}.circuit-track:after{left:70%}
+.circuit-track span{position:absolute;left:40%;top:0;width:30%;height:15px;border-left:1px solid #80d7c56b;border-top:1px solid #80d7c56b;transform:skewX(-35deg)}
+.computer-shell{position:relative;padding-bottom:22px}
+.computer-shell .hero-visual{transform:none;border-radius:12px;box-shadow:0 20px 55px #0005;border-color:#82cdb85c}
+.computer-shell:before{content:"";position:absolute;bottom:4px;left:40%;width:20%;height:20px;background:linear-gradient(90deg,#314a4d,#46645d,#223a3d);border:1px solid #80d7c538}
+.computer-shell:after{content:"";position:absolute;bottom:0;left:29%;width:42%;height:5px;background:#4c6c65;border-radius:8px 8px 2px 2px;box-shadow:0 5px 20px #0007}
+.window-lights{display:flex;gap:5px;align-items:center}.window-lights i{width:6px;height:6px;border-radius:50%;background:#ca977c}.window-lights i:nth-child(2){background:#cbbd81}.window-lights i:nth-child(3){background:#80d7c5}
+.visual-top{gap:10px;align-items:center}.visual-top .window-title{margin-left:auto;color:#9cb9b1;font-size:9px}
+.visual-top span:first-child:before{content:none}
+.code-panel{border:1px solid #80d7c530;border-radius:10px;background:#09151c;margin-top:23px;max-width:420px;overflow:hidden;font:12px/1.9 ui-monospace,SFMono-Regular,Consolas,monospace;box-shadow:0 8px 30px #0002}
+.code-panel-title{padding:8px 14px;background:#192a30;color:#9db2ad;border-bottom:1px solid #80d7c51c;display:flex;justify-content:space-between;font-size:10px}
+.code-panel pre{margin:0;padding:14px 18px;white-space:pre-wrap;overflow-wrap:anywhere;color:#d6e2d9}
+.code-panel .kw{color:#b6a8df}.code-panel .val{color:#e4bb92}.code-panel .obj{color:#80d7c5}.code-panel .comment{color:#7e9890}
+.section-code{font:10px ui-monospace,Consolas,monospace;letter-spacing:1px;color:#80d7c587;display:block;margin:0 0 16px}
+section{background-image:linear-gradient(145deg,#162831aa,#101b22e8)}
+#photos:after{content:"⌘";font-size:24px;color:#80d7c57a}
+#interests:before{height:22px;top:0;border-left:1px solid #80d7c54d;background:linear-gradient(90deg,#80d7c5,transparent) left top/100% 1px no-repeat}
+#journal:after{content:"</>";font:56px ui-monospace,monospace;right:24px;top:15px;color:#d6b68b18}
+@media(max-width:650px){.circuit-band{font-size:9px;gap:8px;padding:11px}.circuit-track{max-width:75px}.circuit-band .system-note{display:none}.code-panel{font-size:11px}.visual-top .window-title{font-size:8px}.computer-shell{margin-top:5px}.section-code{font-size:9px}#journal:after{font-size:38px}}
 </style></head><body>
 <header><a class="brand" href="./">MARS LIFE.</a><nav aria-label="主要導覽"><a href="#photos">照片</a><a href="#interests">興趣</a><a href="#journal">文字</a></nav></header>
 <main><div class="hero"><div class="eyebrow">A LITTLE SPACE FOR MY EVERYDAY</div><h1>把喜歡的事，<br>慢慢<span>收藏。</span></h1><p class="lead">歡迎來到 Mars Life。這裡收藏照片、模型與興趣，也記下生活裡值得留住的片刻。</p><a class="button" href="#photos">走進我的生活 ↗</a></div>
@@ -93,7 +116,7 @@ let file=snapshot;
 if(!file.content){const blob=await fetch(snapshot.git_url);if(!blob.ok)throw Error('讀取失敗');file=await blob.json()}
 const bytes=Uint8Array.from(atob(file.content.replace(/\s/g,'')),c=>c.charCodeAt(0));
 const parsed=new DOMParser().parseFromString(new TextDecoder().decode(bytes),'text/html');
-for(const id of ['techLifeTheme','photoLayout','sectionDecor']){const incoming=parsed.getElementById(id);if(incoming){document.getElementById(id)?.remove();document.head.append(incoming.cloneNode(true))}}
+for(const id of ['techLifeTheme','photoLayout','sectionDecor','circuitTheme']){const incoming=parsed.getElementById(id);if(incoming){document.getElementById(id)?.remove();document.head.append(incoming.cloneNode(true))}}
 for(const tag of ['header','main','footer'])document.querySelector(tag).replaceWith(parsed.querySelector(tag));
 }catch(error){document.body.textContent='無法載入最新網站，請重新整理管理頁後再試。';return}
 
