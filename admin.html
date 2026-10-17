@@ -93,6 +93,18 @@ section{background-image:linear-gradient(145deg,#162831aa,#101b22e8)}
 #interests:before{height:22px;top:0;border-left:1px solid #80d7c54d;background:linear-gradient(90deg,#80d7c5,transparent) left top/100% 1px no-repeat}
 #journal:after{content:"</>";font:56px ui-monospace,monospace;right:24px;top:15px;color:#d6b68b18}
 @media(max-width:650px){.circuit-band{font-size:9px;gap:8px;padding:11px}.circuit-track{max-width:75px}.circuit-band .system-note{display:none}.code-panel{font-size:11px}.visual-top .window-title{font-size:8px}.computer-shell{margin-top:5px}.section-code{font-size:9px}#journal:after{font-size:38px}}
+</style><style id="binaryTheme">
+/* Binary editorial artwork */
+.digital-art{margin-top:24px;max-width:420px;border:1px solid #80d7c536;border-radius:12px;padding:14px 17px 12px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 55%,#548f7340,transparent 65%),#0b1b22;box-shadow:inset 0 1px #b6edcd0a}
+.digital-art:after{content:"";position:absolute;pointer-events:none;inset:0;background:repeating-linear-gradient(0deg,transparent 0 4px,#8fe9d006 4px 5px)}
+.digital-head{display:flex;justify-content:space-between;align-items:center;color:#8fae9f;font:9px ui-monospace,Consolas,monospace;letter-spacing:2px}
+.pixel-signal{display:flex;gap:4px;align-items:end;height:15px}.pixel-signal i{width:4px;background:#80d7c5;opacity:.5;height:5px}.pixel-signal i:nth-child(2){height:9px}.pixel-signal i:nth-child(3){height:14px;opacity:.9}.pixel-signal i:nth-child(4){height:8px}.pixel-signal i:nth-child(5){height:11px}
+.binary-field{position:relative;padding:18px 0 16px;display:grid;gap:4px;overflow:hidden;font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:3px;color:#7dbfac70;mask-image:linear-gradient(90deg,#000, #000 78%,transparent)}
+.binary-field span{white-space:nowrap}.binary-field span:nth-child(2){transform:translateX(19px);color:#9cd8b744}.binary-field span:nth-child(3){color:#9be6cd; text-shadow:0 0 15px #80d7c55c}.binary-field span:nth-child(4){transform:translateX(-12px);color:#d8bb907d}.binary-field span:nth-child(5){color:#91bea24d}.binary-field span:nth-child(6){transform:translateX(25px);opacity:.45}
+.digital-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #80d7c51b;padding-top:10px;font-size:10px;color:#9eada4}.digital-footer>span:first-child{color:#80d7c5;font-size:7px}.digital-footer>span:last-child{font:9px ui-monospace,monospace;color:#d6b68b}
+.section-code{letter-spacing:2.5px;opacity:.75}
+#journal:after{content:"01";font:64px ui-monospace,monospace;color:#d6b68b13;letter-spacing:-6px}
+@media(max-width:650px){.binary-field{font-size:11px;letter-spacing:2.5px}.digital-art{padding:13px 14px}.digital-head{font-size:8px}.digital-footer{font-size:9px}.section-code{font-size:8px;letter-spacing:1.5px}#journal:after{font-size:42px}}
 </style></head><body>
 <header><a class="brand" href="./">MARS LIFE.</a><nav aria-label="主要導覽"><a href="#photos">照片</a><a href="#interests">興趣</a><a href="#journal">文字</a></nav></header>
 <main><div class="hero"><div class="eyebrow">A LITTLE SPACE FOR MY EVERYDAY</div><h1>把喜歡的事，<br>慢慢<span>收藏。</span></h1><p class="lead">歡迎來到 Mars Life。這裡收藏照片、模型與興趣，也記下生活裡值得留住的片刻。</p><a class="button" href="#photos">走進我的生活 ↗</a></div>
@@ -116,7 +128,7 @@ let file=snapshot;
 if(!file.content){const blob=await fetch(snapshot.git_url);if(!blob.ok)throw Error('讀取失敗');file=await blob.json()}
 const bytes=Uint8Array.from(atob(file.content.replace(/\s/g,'')),c=>c.charCodeAt(0));
 const parsed=new DOMParser().parseFromString(new TextDecoder().decode(bytes),'text/html');
-for(const id of ['techLifeTheme','photoLayout','sectionDecor','circuitTheme']){const incoming=parsed.getElementById(id);if(incoming){document.getElementById(id)?.remove();document.head.append(incoming.cloneNode(true))}}
+for(const id of ['techLifeTheme','photoLayout','sectionDecor','circuitTheme','binaryTheme']){const incoming=parsed.getElementById(id);if(incoming){document.getElementById(id)?.remove();document.head.append(incoming.cloneNode(true))}}
 for(const tag of ['header','main','footer'])document.querySelector(tag).replaceWith(parsed.querySelector(tag));
 }catch(error){document.body.textContent='無法載入最新網站，請重新整理管理頁後再試。';return}
 
