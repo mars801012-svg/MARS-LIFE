@@ -4,7 +4,7 @@
 </style></head><body>
 <header><a class="brand" href="./">MARS LIFE.</a><nav aria-label="主要導覽"><a href="#photos">照片</a><a href="#interests">興趣</a><a href="#journal">文字</a></nav></header>
 <main><div class="hero"><div class="eyebrow">A LITTLE SPACE FOR MY EVERYDAY</div><h1>把喜歡的事，<br>慢慢<span>收藏。</span></h1><p class="lead">歡迎來到 Mars Life。這裡收藏照片、模型與興趣，也記下生活裡值得留住的片刻。</p><a class="button" href="#photos">走進我的生活 ↗</a></div>
-<section id="photos"><div class="section-head"><div><div class="eyebrow">01 / MOMENTS</div><h2>照片收藏</h2></div><a class="edit" href="https://github.com/mars801012-svg/MARS-LIFE/upload/main/images" target="_blank" rel="noopener">上傳照片至 GitHub ↗</a></div><p class="hint">我的相簿正在準備中。以下是照片位置，之後會換成自己的作品。</p>
+<section id="photos"><div class="section-head"><div><div class="eyebrow">01 / MOMENTS</div><h2>照片收藏</h2></div></div><p class="hint">我的相簿正在準備中。以下是照片位置，之後會換成自己的作品。</p>
 <div class="grid">
 <!-- 更換照片：將下方 photo 區塊的文字替換成 <img src="images/model.jpg" alt="我的模型作品" loading="lazy"> -->
 <article class="card"><div class="photo">MODEL / 模型照片待加入</div><div class="card-body"><h3>模型作品</h3><p>收藏製作過程與完成的作品。</p></div></article>
@@ -12,5 +12,42 @@
 <article class="card"><div class="photo">EXPLORE / 出遊照片待加入</div><div class="card-body"><h3>走走看看</h3><p>記錄沿途風景與喜歡的地方。</p></div></article>
 </div></section>
 <section id="interests"><div class="eyebrow">02 / THINGS I LOVE</div><h2>我的興趣</h2><p class="hint">從一件喜歡的小事開始，累積屬於自己的生活。</p><!-- 在這裡修改或新增興趣名稱 --><div class="tags"><span class="tag">模型收藏</span><span class="tag">攝影記錄</span><span class="tag">生活探索</span></div></section>
-<section id="journal"><div class="eyebrow">03 / NOTES TO SELF</div><h2>生活手記</h2><!-- 在這裡修改文字 --><p class="note">這是 Mars Life 的第一頁。想把喜歡的照片、投入的興趣，還有當下的心情，都慢慢留在這裡。</p><a class="edit" href="https://github.com/mars801012-svg/MARS-LIFE/edit/main/index.html" target="_blank" rel="noopener">網站擁有者：編輯文字與照片路徑 ↗</a></section></main>
-<footer><span>© Mars Life · 用自己的步調，記錄生活。</span><a href="https://github.com/mars801012-svg/MARS-LIFE/blob/main/README.md">網站更新說明</a></footer></body></html>
+<section id="journal"><div class="eyebrow">03 / NOTES TO SELF</div><h2>生活手記</h2><!-- 在這裡修改文字 --><p class="note">這是 Mars Life 的第一頁。想把喜歡的照片、投入的興趣，還有當下的心情，都慢慢留在這裡。</p></section></main>
+<footer><span>© Mars Life · 用自己的步調，記錄生活。</span><a href="https://github.com/mars801012-svg/MARS-LIFE/blob/main/README.md">網站更新說明</a></footer><script id="marsEditor">
+(()=>{
+const $=s=>document.querySelector(s), grid=$('.grid');
+let active=false, busy=false, baseSha=null;
+const editables='h1,.lead,.brand,h2,.note,.tag,.card h3,.card p,#photos>.hint,#interests>.hint';
+const panel=document.createElement('aside');panel.id='editor';panel.hidden=true;
+panel.innerHTML='<strong>Mars Life 編輯室</strong><p>點頁面文字即可修改；照片用下方按鈕新增，再用箭頭調整位置。</p><label>新增照片 <input id="photosInput" type="file" accept="image/jpeg,image/png,image/webp" multiple></label><label>電腦每排照片 <select id="columns"><option>1</option><option>2</option><option selected>3</option></select></label><button id="addTag">新增興趣</button><button id="downloadPage">下載網站備份</button><details><summary>發布到 GitHub</summary><p>第一次需建立 Fine-grained token：僅選 MARS-LIFE，Repository permissions → Contents 設 Read and write。憑證只用於本次發布，不儲存於網站或瀏覽器。</p><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">建立 GitHub 授權憑證 ↗</a><label>貼上 Token<input id="githubToken" type="password" autocomplete="off" placeholder="github_pat_…"></label><button id="publishPage">發布修改</button></details><p id="editorStatus" role="status" aria-live="polite"></p><p>下載不等於發布。關閉頁面前請下載備份或發布；預覽中的修改只有你看得到。</p>';
+document.body.append(panel);
+const toggle=document.createElement('button');toggle.id='editToggle';toggle.textContent='✎ 編輯網站';document.body.append(toggle);
+const css=document.createElement('style');css.id='editorStyle';css.textContent=`
+#editToggle{position:fixed;bottom:20px;right:20px;z-index:101;background:#20372f;color:white;border:0;border-radius:30px;padding:14px 24px;cursor:pointer}
+#editor{position:fixed;right:18px;top:18px;bottom:85px;width:310px;overflow:auto;background:#fffdf8;border:1px solid #bec9ba;border-radius:16px;padding:20px;z-index:100;box-shadow:0 12px 50px #20372f33;font-size:14px}
+#editor[hidden]{display:none}#editor label{display:block;margin:14px 0}#editor input,#editor select{display:block;max-width:100%;padding:9px;margin-top:6px}#editor button,.card-controls button{cursor:pointer;border:1px solid #bec9ba;background:#f5f2eb;border-radius:8px;padding:8px 12px;margin:4px}body.editing{padding-right:335px}[contenteditable=true]{outline:1px dashed #a95b39;outline-offset:4px;min-width:25px}.card-controls{padding:8px}.card-controls label{font-size:12px}.card-controls input{max-width:110px}.grid{grid-template-columns:repeat(var(--photo-cols,3),minmax(0,1fr))}@media(max-width:750px){body.editing{padding-right:0;padding-bottom:380px}#editor{top:auto;bottom:70px;right:10px;left:10px;width:auto;max-height:300px}.grid{grid-template-columns:1fr}}`;
+document.head.append(css);
+const status=t=>$('#editorStatus').textContent=t;
+function controls(card){
+if(card.querySelector('.card-controls'))return;
+const box=document.createElement('div');box.className='card-controls';
+function button(label,fn){const b=document.createElement('button');b.textContent=label;b.onclick=fn;box.append(b)}
+button('← 前移',()=>{if(card.previousElementSibling)grid.insertBefore(card,card.previousElementSibling)});
+button('後移 →',()=>{if(card.nextElementSibling)grid.insertBefore(card.nextElementSibling,card)});
+button('移除',()=>{if(confirm('移除這張照片卡片？'))card.remove()});
+const label=document.createElement('label');label.textContent=' 照片焦點 ';const range=document.createElement('input');range.type='range';range.min=0;range.max=100;range.value=card.querySelector('img')?.dataset.focus||50;range.setAttribute('aria-label','照片垂直焦點');range.oninput=()=>{const im=card.querySelector('img');if(im){im.style.objectPosition='50% '+range.value+'%';im.dataset.focus=range.value}};label.append(range);box.append(label);card.append(box)
+}
+function refresh(){document.querySelectorAll(editables).forEach(e=>e.contentEditable=String(active));document.querySelectorAll('.card').forEach(c=>{if(active)controls(c);else c.querySelector('.card-controls')?.remove()})}
+toggle.onclick=()=>{active=!active;panel.hidden=!active;document.body.classList.toggle('editing',active);toggle.textContent=active?'完成預覽':'✎ 編輯網站';refresh();if(active&&!baseSha)fetch('https://api.github.com/repos/mars801012-svg/MARS-LIFE/contents/index.html?ref=main',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject()).then(d=>baseSha=d.sha).catch(()=>status('無法讀取目前版本；仍可編輯及下載。'))};
+document.addEventListener('paste',e=>{if(e.target.isContentEditable){e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'))}});
+$('#columns').value=grid.style.getPropertyValue('--photo-cols')||'3';
+$('#columns').onchange=e=>grid.style.setProperty('--photo-cols',e.target.value);
+$('#addTag').onclick=()=>{const t=document.createElement('span');t.className='tag';t.textContent='新興趣';$('.tags').append(t);refresh();t.focus()};
+async function photo(file){if(!['image/jpeg','image/png','image/webp'].includes(file.type))throw Error('請選 JPG、PNG 或 WebP 照片。');const bitmap=await createImageBitmap(file);const ratio=Math.min(1,1400/Math.max(bitmap.width,bitmap.height));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*ratio));canvas.height=Math.max(1,Math.round(bitmap.height*ratio));canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();return canvas.toDataURL('image/jpeg',.82)}
+$('#photosInput').onchange=async e=>{try{status('正在處理照片…');for(const f of e.target.files){const src=await photo(f);const c=document.createElement('article');c.className='card';c.innerHTML='<div class="photo"><img loading="lazy"></div><div class="card-body"><h3></h3><p>點這裡填寫照片說明。</p></div>';c.querySelector('img').src=src;c.querySelector('img').alt=f.name;c.querySelector('h3').textContent=f.name.replace(/\.[^.]+$/,'');grid.append(c)}$('#photos>.hint').textContent='收藏喜歡的作品與生活片刻。';refresh();status('照片已加入預覽，請下載備份或發布。')}catch(err){status(err.message)}e.target.value=''};
+function output(){const copy=document.documentElement.cloneNode(true);copy.querySelector('#editorStyle')?.remove();copy.querySelector('#editor').remove();copy.querySelector('#editToggle').remove();copy.querySelectorAll('.card-controls').forEach(x=>x.remove());copy.querySelectorAll('[contenteditable]').forEach(x=>x.removeAttribute('contenteditable'));copy.querySelector('body').classList.remove('editing');return '<!doctype html>\n'+copy.outerHTML}
+$('#downloadPage').onclick=()=>{const url=URL.createObjectURL(new Blob([output()],{type:'text/html;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='index.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('已下載 index.html，可作備份或上傳到 GitHub。')};
+$('#publishPage').onclick=async()=>{if(busy)return;const token=$('#githubToken').value.trim();if(!token){status('請先填入 GitHub 授權憑證，或選下載備份。');return}if(!baseSha){status('無法確認原始版本，請先下載備份，再重新整理頁面。');return}busy=true;$('#publishPage').disabled=true;try{status('正在發布…');const bytes=new TextEncoder().encode(output());if(bytes.length>20000000)throw Error('照片總量過大，請減少照片後重試；也可先下載備份。');let binary='';for(let i=0;i<bytes.length;i+=8192)binary+=String.fromCharCode(...bytes.subarray(i,i+8192));const r=await fetch('https://api.github.com/repos/mars801012-svg/MARS-LIFE/contents/index.html',{method:'PUT',headers:{Authorization:'Bearer '+token,Accept:'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify({message:'Update Mars Life with visual editor',content:btoa(binary),sha:baseSha,branch:'main'})});if(!r.ok){if(r.status===409||r.status===422)throw Error('網站版本已變更或檔案無法寫入。請下載備份後重新載入，再套用修改。');if(r.status===401||r.status===403)throw Error('授權失敗，請確認憑證的儲存庫與 Contents 寫入權限。');throw Error('發布失敗（'+r.status+'），修改仍在預覽中，請下載備份。')}const result=await r.json();baseSha=result.content.sha;status('已儲存到 GitHub！等待 Pages 部署完成後，訪客就會看到新版。')}catch(err){status(err.message)}finally{$('#githubToken').value='';busy=false;$('#publishPage').disabled=false}};
+window.addEventListener('beforeunload',e=>{if(active){e.preventDefault();e.returnValue=''}});
+})();
+</script></body></html>
