@@ -42,6 +42,34 @@ footer{border-color:#ffffff15;color:#7f9690;padding-top:30px;padding-bottom:35px
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card{transition:none}.card:hover{transform:none}}
 @media(max-width:850px){.hero{gap:28px;grid-template-columns:1fr 1fr}.hero-visual img{height:320px}h1{font-size:46px}}
 @media(max-width:650px){.hero{grid-template-columns:1fr;padding:40px 0 50px;gap:35px}.hero-visual{transform:none}.hero-visual img{height:340px}h1{font-size:46px}.hero-strip{gap:17px;margin-top:25px}section{padding:38px 0}.photo{aspect-ratio:4/3}header{padding-top:22px}.brand{font-size:17px;letter-spacing:2px}nav{gap:14px}.note{font-size:17px}}
+</style><style id="sectionDecor">
+/* Section framing — Mars Life */
+body{background:radial-gradient(ellipse at 0 42%,#164b4730,transparent 35%),radial-gradient(ellipse at 100% 80%,#6e493023,transparent 40%),#0b121a}
+main{position:relative}header{border-bottom-color:#8ecfbd22}
+.hero{position:relative;margin-top:24px;padding:60px 32px 66px;border:1px solid #81cfc326;border-radius:24px;background:linear-gradient(130deg,#14263099,#111b2299 60%,#28302766);isolation:isolate}
+.hero:before{content:"";position:absolute;left:0;top:32px;width:3px;height:95px;background:linear-gradient(#8fdfca,#d7b48d);border-radius:5px}
+.hero:after{content:"MARS / PERSONAL ARCHIVE";position:absolute;bottom:16px;left:32px;font:9px ui-monospace,monospace;letter-spacing:3px;color:#839e9d}
+.hero-copy{position:relative;z-index:1}.hero-visual{box-shadow:12px 18px 0 #80d7c508,0 26px 65px #0005;border-color:#8bcebc50;background:#0c191e}
+section{position:relative;margin:28px 0;padding:38px 34px 40px;border:1px solid #82cdb82b;border-radius:20px;background:linear-gradient(145deg,#162831aa,#101b22e8);box-shadow:0 15px 40px #00000018;overflow:hidden;isolation:isolate}
+section:before{content:"";position:absolute;top:0;left:34px;width:100px;height:2px;background:linear-gradient(90deg,#82d7c4,transparent)}
+section:after{content:"+";position:absolute;right:23px;top:18px;font:22px ui-monospace,monospace;color:#7ac8b875;pointer-events:none}
+section .eyebrow{display:flex;align-items:center;gap:12px}
+section .eyebrow:after{content:"";width:52px;height:1px;background:#80d7c540}
+#photos{background:radial-gradient(ellipse at 95% 0,#1e645333,transparent 55%),linear-gradient(145deg,#14242d,#101a22)}
+.card{position:relative;border-radius:12px;border-color:#85c7b522;box-shadow:0 8px 22px #0002}
+.card-body{position:relative;border-top:1px solid #82cdb820}.card-body:before{content:"";position:absolute;top:22px;left:0;width:3px;height:24px;background:#80d7c5}
+.photo{background:repeating-linear-gradient(135deg,transparent,transparent 14px,#8ecfbd04 14px,#8ecfbd04 15px),#14242b}
+#interests{padding-bottom:44px;background:radial-gradient(circle at 88% 50%,#719e5b16,transparent 40%),#132127}
+#interests:after{content:"INTEREST / INDEX";top:auto;bottom:20px;right:24px;font:9px ui-monospace,monospace;letter-spacing:2px;color:#82a69c}
+.tags{gap:15px;margin-bottom:12px}.tag{position:relative;display:flex;align-items:center;gap:12px;padding:16px 24px;border-color:#94c6b735;background:linear-gradient(120deg,#1b3633,#17292c);box-shadow:inset 0 1px #b6ecd610}
+.tag:before{content:"◇";color:#a9ddcc;font-size:19px}
+#journal{background:radial-gradient(ellipse at 95% 80%,#9b74432a,transparent 55%),linear-gradient(130deg,#20292b,#172127);border-color:#d5b78b35}
+#journal:before{background:linear-gradient(90deg,#dcb88b,transparent);width:130px}
+#journal:after{content:"“";font:130px Georgia,serif;right:25px;top:0;color:#d6b68b18;z-index:-1}
+.note{border-left-color:#d9b98c;margin-top:28px;color:#deded1}
+footer{padding:24px 30px 38px;border-top:0;font-size:11px;letter-spacing:.7px}
+@media(max-width:850px){.hero{gap:24px;padding:40px 24px 56px}.hero:after{left:24px}}
+@media(max-width:650px){header,main,footer{padding-left:17px;padding-right:17px}.hero{padding:32px 22px 54px;margin-top:12px;border-radius:18px}section{padding:30px 22px 32px;margin:20px 0;border-radius:16px}.hero-visual img{height:310px}section:before{left:22px}section:after{right:16px;top:14px}.tag{padding:12px 18px}.note{padding-left:18px}.hero:after{font-size:8px;letter-spacing:2px}#interests:after{font-size:8px;bottom:12px}footer{gap:8px;padding-top:10px}}
 </style></head><body>
 <header><a class="brand" href="./">MARS LIFE.</a><nav aria-label="主要導覽"><a href="#photos">照片</a><a href="#interests">興趣</a><a href="#journal">文字</a></nav></header>
 <main><div class="hero"><div class="eyebrow">A LITTLE SPACE FOR MY EVERYDAY</div><h1>把喜歡的事，<br>慢慢<span>收藏。</span></h1><p class="lead">歡迎來到 Mars Life。這裡收藏照片、模型與興趣，也記下生活裡值得留住的片刻。</p><a class="button" href="#photos">走進我的生活 ↗</a></div>
@@ -65,7 +93,7 @@ let file=snapshot;
 if(!file.content){const blob=await fetch(snapshot.git_url);if(!blob.ok)throw Error('讀取失敗');file=await blob.json()}
 const bytes=Uint8Array.from(atob(file.content.replace(/\s/g,'')),c=>c.charCodeAt(0));
 const parsed=new DOMParser().parseFromString(new TextDecoder().decode(bytes),'text/html');
-for(const id of ['techLifeTheme','photoLayout']){const incoming=parsed.getElementById(id);if(incoming){document.getElementById(id)?.remove();document.head.append(incoming.cloneNode(true))}}
+for(const id of ['techLifeTheme','photoLayout','sectionDecor']){const incoming=parsed.getElementById(id);if(incoming){document.getElementById(id)?.remove();document.head.append(incoming.cloneNode(true))}}
 for(const tag of ['header','main','footer'])document.querySelector(tag).replaceWith(parsed.querySelector(tag));
 }catch(error){document.body.textContent='無法載入最新網站，請重新整理管理頁後再試。';return}
 
